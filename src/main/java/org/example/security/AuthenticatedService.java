@@ -1,4 +1,4 @@
-package org.example.auth;
+package org.example.security;
 
 
 import org.springframework.security.core.context.SecurityContextHolder;

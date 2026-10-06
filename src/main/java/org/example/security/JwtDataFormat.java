@@ -1,4 +1,4 @@
-package org.example.auth;
+package org.example.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

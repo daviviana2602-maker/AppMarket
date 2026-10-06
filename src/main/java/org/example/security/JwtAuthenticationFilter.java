@@ -1,4 +1,4 @@
-package org.example.auth;
+package org.example.security;
 
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
@@ -35,12 +35,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private UserEntity getCurrentUser(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(ErrorCodeEnum.USER_NOT_FOUND, "User not found"));
-    }
-
-    
-    @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) {
-        return request.getRequestURI().equals("/v1/auth/refresh");
     }
 
 
