@@ -5,7 +5,11 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import org.example.common.Exception.ErrorCodeEnum;
+import org.example.common.Exception.NotFoundException;
+import org.example.user.UserEntity;
+import org.example.user.UserRepository;
+import org.example.user.UserStatusEnum;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,9 +34,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private UserEntity getCurrentUser(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new ChangeSetPersister.NotFoundException(ErrorCodeEnum.USER_NOT_FOUND,"User not found"));
+                .orElseThrow(() -> new NotFoundException(ErrorCodeEnum.USER_NOT_FOUND, "User not found"));
     }
 
+    
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         return request.getRequestURI().equals("/v1/auth/refresh");
