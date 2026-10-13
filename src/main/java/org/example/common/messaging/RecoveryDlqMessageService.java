@@ -36,12 +36,22 @@ public class RecoveryDlqMessageService {
 
                 try {
 
+                    channel.confirmSelect();
+
                     channel.basicPublish(
                             RabbitConfig.ATLAS_EXCHANGE,
                             RabbitConfig.USER_REGISTERED_ROUTING_KEY,
                             response.getProps(),
                             response.getBody()
                     );
+
+
+                    boolean confirmed = channel.waitForConfirms(5000);
+
+                    if (!confirmed) {
+                        return false;
+                    }
+
 
                     channel.basicAck(
                             response.getEnvelope().getDeliveryTag(),
