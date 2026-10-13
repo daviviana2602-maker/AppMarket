@@ -18,7 +18,7 @@ public class EmailService {
 
         String html = """
             <h1>Bem vindo ao AppMarket</h1>
-            <p>Por gentileza, confirme seu email ;)</p>
+            <p>Por gentileza, confirme seu email e comece suas compras! ;)</p>
 
             <a href="http://localhost:8080/v1/auth/verify-email?token=%s">
                 Verificar email aqui

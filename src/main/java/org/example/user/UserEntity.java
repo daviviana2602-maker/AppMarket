@@ -55,6 +55,6 @@ public class UserEntity {
     private LocalDateTime emailVerificationExpiresIn;
 
     @Column(name = "email_sent", nullable = false)
-    private Boolean emailSent;
+    private Boolean emailSent = false;
 
 }
