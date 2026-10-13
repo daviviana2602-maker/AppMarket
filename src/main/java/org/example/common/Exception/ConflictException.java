@@ -1,4 +1,4 @@
-package org.example.common.Exception;
+package org.example.common.exception;
 
 
 public class ConflictException extends RuntimeException {

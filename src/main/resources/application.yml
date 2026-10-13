@@ -5,6 +5,16 @@ spring:
   profiles:
     active: dev
 
+  rabbitmq:
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: ${MAX_ATTEMPTS}
+          initial-interval: ${INITIAL_INTERVAL}
+          max-interval: ${INITIAL_INTERVAL}
+          multiplier: 1
+
 jwt:
   secret: ${JWT_SECRET}
   refreshExpiration: ${REFRESH_JWT_EXPIRATION}

@@ -1,9 +1,11 @@
 package org.example.auth.service;
 
 import org.example.auth.dto.response.CreateAccountResponse;
-import org.example.common.Exception.BadRequestException;
-import org.example.common.Exception.ConflictException;
-import org.example.common.Exception.ErrorCodeEnum;
+import org.example.common.exception.BadRequestException;
+import org.example.common.exception.ConflictException;
+import org.example.common.exception.ErrorCodeEnum;
+import org.example.common.messaging.event.UserRegisteredEvent;
+import org.example.common.messaging.producer.UserRegisteredEventProducer;
 import org.example.email.EmailService;
 import org.example.user.UserEntity;
 import org.example.user.UserRepository;
@@ -13,11 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 import static org.example.common.normalize.StringNormalizer.normalizeEmail;
 import static org.example.common.normalize.StringNormalizer.normalizeName;
+
 
 @Service
 public class CreateAccountService {
@@ -26,14 +26,17 @@ public class CreateAccountService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final UserRegisteredEventProducer userRegisteredEventProducer;
 
 
     public CreateAccountService(UserRepository userRepository,
                                 PasswordEncoder passwordEncoder,
-                                EmailService emailService) {
+                                EmailService emailService,
+                                UserRegisteredEventProducer userRegisteredEventProducer) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
+        this.userRegisteredEventProducer = userRegisteredEventProducer;
     }
 
 
@@ -70,20 +73,14 @@ public class CreateAccountService {
         user.setPassword(passwordHash);
 
 
-        String token = UUID.randomUUID().toString();
-
-        user.setEmailVerified(false);
-        user.setEmailVerificationToken(token);
-        user.setEmailVerificationExpiresIn(LocalDateTime.now().plusMinutes(10));
-
-        emailService.sendVerificationEmail(email, token);
-
-
         userRepository.saveAndFlush(user);
 
         if (user.getId() == 1) {
             user.setRole(UserRoleEnum.ADMIN);
         }
+
+
+        userRegisteredEventProducer.publishUserRegistered(new UserRegisteredEvent(user.getId(), email));
 
 
         return new CreateAccountResponse(

@@ -16,6 +16,15 @@ services:
       timeout: 5s
       retries: 10
 
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: atlas-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+
   app:
     build: .
     ports:
@@ -30,6 +39,9 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       REFRESH_JWT_EXPIRATION: ${REFRESH_JWT_EXPIRATION}
       ACCESS_JWT_EXPIRATION: ${ACCESS_JWT_EXPIRATION}
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      MAX_ATTEMPTS: ${MAX_ATTEMPTS}
+      INITIAL_INTERVAL: ${INITIAL_INTERVAL}
 
 volumes:
   postgres_data:
