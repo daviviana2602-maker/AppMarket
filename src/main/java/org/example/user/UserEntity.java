@@ -45,5 +45,14 @@ public class UserEntity {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    @Column(nullable = false)
+    private Boolean emailVerified = false;
+
+    @Column
+    private String emailVerificationToken;
+
+    @Column
+    private LocalDateTime emailVerificationExpiresIn;
+
 
 }

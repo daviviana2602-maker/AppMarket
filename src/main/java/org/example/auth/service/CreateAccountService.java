@@ -4,6 +4,7 @@ import org.example.auth.dto.response.CreateAccountResponse;
 import org.example.common.Exception.BadRequestException;
 import org.example.common.Exception.ConflictException;
 import org.example.common.Exception.ErrorCodeEnum;
+import org.example.email.EmailService;
 import org.example.user.UserEntity;
 import org.example.user.UserRepository;
 import org.example.user.UserRoleEnum;
