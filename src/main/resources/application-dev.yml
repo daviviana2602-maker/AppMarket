@@ -7,6 +7,12 @@ spring:
   flyway:
     enabled: true
 
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+
   jpa:
     hibernate:
       ddl-auto: validate
