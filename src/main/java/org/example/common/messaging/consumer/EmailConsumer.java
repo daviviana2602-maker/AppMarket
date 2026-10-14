@@ -2,7 +2,6 @@ package org.example.common.messaging.consumer;
 
 
 import org.example.common.exception.ErrorCodeEnum;
-import org.example.common.exception.NotFoundException;
 import org.example.common.messaging.RabbitConfig;
 import org.example.common.messaging.event.UserRegisteredEvent;
 import org.example.email.EmailService;
@@ -29,7 +28,7 @@ public class EmailConsumer {
 
     private UserEntity findUserById(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException(ErrorCodeEnum.USER_NOT_FOUND, "User not found"));
+                .orElseThrow(() -> new org.example.common.exception.NotFoundException(ErrorCodeEnum.USER_NOT_FOUND, "User not found"));
     }
 
 
