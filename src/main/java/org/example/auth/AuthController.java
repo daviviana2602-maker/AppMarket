@@ -11,6 +11,7 @@ import org.example.auth.dto.response.LoginResponse;
 import org.example.auth.service.CreateAccountService;
 import org.example.auth.service.LoginService;
 import org.example.auth.service.LogoutService;
+import org.example.auth.service.TokenService;
 import org.example.email.verify.VerifyEmailService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,6 +29,7 @@ public class AuthController {
     private final VerifyEmailService verifyEmailService;
     private final LoginService loginService;
     private final LogoutService logoutService;
+    private final TokenService tokenService;
 
 
     @PostMapping("/create")
@@ -76,6 +78,13 @@ public class AuthController {
         verifyEmailService.verify(token);
 
         return ResponseEntity.ok("Email verified!");
+    }
+
+
+    @PostMapping("/refresh")
+    public ResponseEntity<?> refresh(@RequestBody String refreshToken)
+    {
+        return tokenService.refreshAccessToken(refreshToken);
     }
 
 
