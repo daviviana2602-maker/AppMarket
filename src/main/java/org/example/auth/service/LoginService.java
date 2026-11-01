@@ -11,7 +11,7 @@ import org.example.security.JwtService;
 import org.example.security.TokenHashService;
 import org.example.user.UserEntity;
 import org.example.user.UserRepository;
-import org.example.user.UserStatusEnum;
+import org.example.user.enums.UserStatusEnum;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

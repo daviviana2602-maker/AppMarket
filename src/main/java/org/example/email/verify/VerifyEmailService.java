@@ -35,18 +35,27 @@ public class VerifyEmailService {
         UserEntity user = getUserByToken(token);
 
 
-        if (user.getEmailVerificationExpiresIn().isBefore(LocalDateTime.now())) {
+        if (user.getEmailVerificationExpiresIn()
+                .isBefore(LocalDateTime.now())) {
 
             throw new BadRequestException(ErrorCodeEnum.TOKEN_EXPIRED, "Token expired");
 
         }
 
 
+        if (user.getNewEmail() != null) {
+
+            user.setEmail(user.getNewEmail());
+            user.setNewEmail(null);
+
+        } else {
+
+            user.setEmailVerified(true);
+
+        }
+
         user.setEmailVerificationToken(null);
         user.setEmailVerificationExpiresIn(null);
-        user.setEmailVerified(true);
-        user.setEmailSent(true);
-
 
     }
 

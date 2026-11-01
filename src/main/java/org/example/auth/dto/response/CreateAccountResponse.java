@@ -2,8 +2,8 @@ package org.example.auth.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.example.user.UserRoleEnum;
-import org.example.user.UserStatusEnum;
+import org.example.user.enums.UserRoleEnum;
+import org.example.user.enums.UserStatusEnum;
 
 @Getter
 @AllArgsConstructor

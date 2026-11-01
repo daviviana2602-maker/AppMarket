@@ -3,6 +3,7 @@ package org.example.common.messaging.consumer;
 
 import org.example.common.exception.ErrorCodeEnum;
 import org.example.common.messaging.RabbitConfig;
+import org.example.common.messaging.event.UserChangedEmailEvent;
 import org.example.common.messaging.event.UserRegisteredEvent;
 import org.example.email.EmailService;
 import org.example.user.UserEntity;
@@ -66,5 +67,17 @@ public class EmailConsumer {
         userRepository.save(user);
 
     }
+
+
+    @RabbitListener(queues = RabbitConfig.USER_CHANGED_EMAIL_QUEUE)
+    public void consume(UserChangedEmailEvent event) {
+
+        emailService.sendVerificationEmail(
+                event.getEmail(),
+                event.getToken()
+        );
+
+    }
+
 
 }
