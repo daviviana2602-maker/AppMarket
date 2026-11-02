@@ -87,10 +87,18 @@ public class UpdateUserService {
             }
 
 
+            if (user.getEmailChangeCooldownUntil() != null &&
+                user.getEmailChangeCooldownUntil().isAfter(LocalDateTime.now())) {
+
+                throw new BadRequestException(ErrorCodeEnum.CHANGE_COOLDOWN, "Wait 1 hour before trying to update your email again");
+            }
+
+
             String token = UUID.randomUUID().toString();
 
             user.setEmailVerificationToken(token);
             user.setEmailVerificationExpiresIn(LocalDateTime.now().plusHours(1));
+            user.setEmailChangeCooldownUntil(LocalDateTime.now().plusMinutes(90));
 
             user.setNewEmail(newEmail);
 

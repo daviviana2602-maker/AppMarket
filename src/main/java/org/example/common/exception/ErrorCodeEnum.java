@@ -48,6 +48,7 @@ public enum ErrorCodeEnum {
     ONE_FIELD_REQUIRED,
 
     // REQUESTS
-    MANY_REQUESTS
+    MANY_REQUESTS,
+    CHANGE_COOLDOWN
 
 }

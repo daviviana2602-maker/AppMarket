@@ -35,10 +35,9 @@ public class VerifyEmailService {
         UserEntity user = getUserByToken(token);
 
 
-        if (user.getEmailVerificationExpiresIn()
-                .isBefore(LocalDateTime.now())) {
+        if (user.getEmailVerificationExpiresIn().isBefore(LocalDateTime.now())) {
 
-            throw new BadRequestException(ErrorCodeEnum.TOKEN_EXPIRED, "Token expired");
+            throw new BadRequestException(ErrorCodeEnum.TOKEN_EXPIRED, "Token has expired");
 
         }
 
@@ -47,6 +46,8 @@ public class VerifyEmailService {
 
             user.setEmail(user.getNewEmail());
             user.setNewEmail(null);
+
+            user.setEmailChangeCooldownUntil(LocalDateTime.now().plusWeeks(1));
 
         } else {
 

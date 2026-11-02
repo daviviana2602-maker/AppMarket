@@ -62,4 +62,7 @@ public class UserEntity {
     @Column(name = "new_email")
     private String newEmail;
 
+    @Column(name = "email_change_cooldown_until")
+    private LocalDateTime emailChangeCooldownUntil;
+
 }
