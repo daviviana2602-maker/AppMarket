@@ -13,6 +13,7 @@ import org.example.auth.service.LoginService;
 import org.example.auth.service.LogoutService;
 import org.example.auth.service.TokenService;
 import org.example.email.verify.VerifyEmailService;
+import org.example.email.verify.VerifyUserPasswordService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,9 @@ public class AuthController {
     private final VerifyEmailService verifyEmailService;
     private final LoginService loginService;
     private final LogoutService logoutService;
+    private final VerifyUserPasswordService verifyUserPasswordService;
     private final TokenService tokenService;
+
 
 
     @PostMapping("/create")
@@ -78,6 +81,16 @@ public class AuthController {
         verifyEmailService.verify(token);
 
         return ResponseEntity.ok("Email verified!");
+    }
+
+
+    @GetMapping("/verify-user-password")
+    public ResponseEntity<?> verifyUserPassword(
+            @RequestParam String token
+    ) {
+        verifyUserPasswordService.checkPassword(token);
+
+        return ResponseEntity.ok("The new user's password was verified and approved!");
     }
 
 

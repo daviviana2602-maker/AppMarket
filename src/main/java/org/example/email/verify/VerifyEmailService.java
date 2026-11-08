@@ -37,16 +37,26 @@ public class VerifyEmailService {
 
         if (user.getEmailVerificationExpiresIn().isBefore(LocalDateTime.now())) {
 
-            throw new BadRequestException(ErrorCodeEnum.TOKEN_EXPIRED, "Token expired");
+            throw new BadRequestException(ErrorCodeEnum.TOKEN_EXPIRED, "Token has expired");
 
         }
 
 
+        if (user.getNewEmail() != null) {
+
+            user.setEmail(user.getNewEmail());
+            user.setNewEmail(null);
+
+            user.setEmailChangeCooldownUntil(LocalDateTime.now().plusWeeks(1));
+
+        } else {
+
+            user.setEmailVerified(true);
+
+        }
+
         user.setEmailVerificationToken(null);
         user.setEmailVerificationExpiresIn(null);
-        user.setEmailVerified(true);
-        user.setEmailSent(true);
-
 
     }
 

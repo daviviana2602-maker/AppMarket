@@ -8,7 +8,7 @@ import org.example.common.exception.NotFoundException;
 import org.example.security.JwtDataFormat;
 import org.example.security.JwtService;
 import org.example.security.TokenHashService;
-import org.example.user.UserRoleEnum;
+import org.example.user.enums.UserRoleEnum;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

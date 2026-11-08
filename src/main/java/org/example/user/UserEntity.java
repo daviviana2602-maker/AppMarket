@@ -2,6 +2,8 @@ package org.example.user;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.user.enums.UserRoleEnum;
+import org.example.user.enums.UserStatusEnum;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -56,5 +58,21 @@ public class UserEntity {
 
     @Column(name = "email_sent", nullable = false)
     private Boolean emailSent = false;
+
+    @Column(name = "new_email")
+    private String newEmail;
+
+    @Column(name = "email_change_cooldown_until")
+    private LocalDateTime emailChangeCooldownUntil;
+
+    @Column(name = "password_reset_token")
+    private String passwordResetToken;
+
+    @Column(name = "password_reset_expires_at")
+    private LocalDateTime passwordResetExpiresAt;
+
+    @Column(name = "new_password")
+    private String newPassword;
+
 
 }
