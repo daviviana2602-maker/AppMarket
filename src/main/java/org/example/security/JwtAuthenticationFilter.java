@@ -9,7 +9,7 @@ import org.example.common.exception.ErrorCodeEnum;
 import org.example.common.exception.NotFoundException;
 import org.example.user.UserEntity;
 import org.example.user.UserRepository;
-import org.example.user.UserStatusEnum;
+import org.example.user.enums.UserStatusEnum;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;

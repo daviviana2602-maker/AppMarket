@@ -3,8 +3,8 @@ package org.example.common.seeder;
 
 import org.example.user.UserEntity;
 import org.example.user.UserRepository;
-import org.example.user.UserRoleEnum;
-import org.example.user.UserStatusEnum;
+import org.example.user.enums.UserRoleEnum;
+import org.example.user.enums.UserStatusEnum;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

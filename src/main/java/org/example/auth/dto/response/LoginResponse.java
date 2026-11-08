@@ -2,7 +2,7 @@ package org.example.auth.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.example.user.UserRoleEnum;
+import org.example.user.enums.UserRoleEnum;
 
 
 @Getter
