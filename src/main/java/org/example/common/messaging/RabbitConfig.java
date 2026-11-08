@@ -14,11 +14,13 @@ public class RabbitConfig {
     public static final String ATLAS_EXCHANGE = "atlas.exchange";
 
     public static final String USER_REGISTERED_QUEUE = "user.registered.queue";
+    public static final String USER_CHANGED_PASSWORD_QUEUE = "user.changed.password.queue";
     public static final String USER_CHANGED_EMAIL_QUEUE = "user.changed.email.queue";
 
     public static final String USER_REGISTERED_DLQ = "user.registered.dlq";
 
     public static final String USER_REGISTERED_ROUTING_KEY = "user.registered.routingkey";
+    public static final String USER_CHANGED_PASSWORD_ROUTING_KEY = "user.changed.password.routingkey";
     public static final String USER_REGISTERED_DLQ_ROUTING_KEY = "user.registered.dlq.routingkey";
     public static final String USER_CHANGED_EMAIL_ROUTING_KEY = "user.changed.email.routingkey";
 
@@ -35,6 +37,11 @@ public class RabbitConfig {
     @Bean
     public Queue userChangedEmailQueue() {
         return new Queue(USER_CHANGED_EMAIL_QUEUE, true);
+    }
+
+    @Bean
+    public Queue userChangedPasswordQueue() {
+        return new Queue(USER_CHANGED_PASSWORD_QUEUE, true);
     }
 
 
@@ -66,6 +73,15 @@ public class RabbitConfig {
                 .bind(userChangedEmailQueue)
                 .to(exchange)
                 .with(USER_CHANGED_EMAIL_ROUTING_KEY);
+    }
+
+
+    @Bean
+    public Binding userChangedPasswordBinding(Queue userChangedPasswordQueue, DirectExchange exchange) {
+        return BindingBuilder
+                .bind(userChangedPasswordQueue)
+                .to(exchange)
+                .with(USER_CHANGED_PASSWORD_ROUTING_KEY);
     }
 
 

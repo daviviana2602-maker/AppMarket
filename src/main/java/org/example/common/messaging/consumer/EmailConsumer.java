@@ -4,6 +4,7 @@ package org.example.common.messaging.consumer;
 import org.example.common.exception.ErrorCodeEnum;
 import org.example.common.messaging.RabbitConfig;
 import org.example.common.messaging.event.UserChangedEmailEvent;
+import org.example.common.messaging.event.UserChangedPasswordEvent;
 import org.example.common.messaging.event.UserRegisteredEvent;
 import org.example.email.EmailService;
 import org.example.user.UserEntity;
@@ -78,6 +79,18 @@ public class EmailConsumer {
         );
 
     }
+
+
+    @RabbitListener(queues = RabbitConfig.USER_CHANGED_PASSWORD_QUEUE)
+    public void consume(UserChangedPasswordEvent event) {
+
+        emailService.sendEmailUserPassword(
+                event.getEmail(),
+                event.getToken()
+        );
+
+    }
+
 
 
 }
